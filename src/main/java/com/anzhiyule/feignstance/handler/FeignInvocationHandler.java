@@ -14,11 +14,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class FeignInvocationHandler implements InvocationHandler {
-
-    private static Logger LOGGER = Logger.getLogger(FeignInvocationHandler.class.getName());
 
     private RestInvocation restInvocation;
 
@@ -59,7 +56,6 @@ public class FeignInvocationHandler implements InvocationHandler {
         Filter classFilterAnnotation = (Filter)clazz.getAnnotation(Filter.class);
         if (classFilterAnnotation != null) {
             Class<? extends PreRequestFilter>[] classes = classFilterAnnotation.values();
-            LOGGER.info(String.format("filter total %s", classes.length));
             for (Class<? extends PreRequestFilter> filterClass : classes) {
                 PreRequestFilter o = context.getBean(filterClass);
                 if (o == null) {
